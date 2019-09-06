@@ -8,17 +8,14 @@
 #' read_pts('ndvi.csv')
 
 read_pts <- function(filename){
-  require(dplyr)
-  require(readr)
-  require(sp)
 
   orig_crs  <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 
   utm14 <- "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 
   pts <- read_csv(filename) %>%
-      {SpatialPointsDataFrame(select(.,long,lat),
-                              select(.,ndvi),
+      {SpatialPointsDataFrame(dplyr::select(.,long,lat),
+                              dplyr::select(.,ndvi),
                               proj4string = CRS(orig_crs))} %>%
       spTransform(CRSobj=CRS(utm14))
 
@@ -53,7 +50,7 @@ calc_ndvi <- function(NIR,Red){
 
 read_image <- function(filename,
                        layer_names=c('Blue', 'Green', 'Red', 'NIR',
-                  'Green2', 'Red2', 'Thermal', 'Alpha')){
+                  'Green2', 'Red2', 'Thermal')){
 
   utm14 <- "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 

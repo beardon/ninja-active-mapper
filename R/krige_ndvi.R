@@ -8,9 +8,6 @@
 #' @export
 
 krige_ndvi <- function(pts,img){
-    require(automap)
-    require(betareg)
-    require(boot)
 
     # Extract passive NDVI values from img for each point in the pts dataset
     pt_data <- raster::extract(img,pts,
