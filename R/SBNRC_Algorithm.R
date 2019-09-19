@@ -1,9 +1,15 @@
 
-#Implementing the Wheat algorithm from SBNRC NRate VRN equations excel sheet from Dr. Arnall's email
+#' Implementing the Wheat algorithm from SBNRC NRate VRN equations excel sheet from Dr. Arnall's email
+#' Creates Nrate application based on Nitrogen Rich Strip (NRS), Farmer Target (FT), Growing Degree Days (GDD), and Target.
+#'
+#' @param NRS The kriged map of the field.
+#' @return The pixel based N-Rate.
+#' @export
+#' @examples
+#' VRN(NRS=kriged)
 
-
-VRN=function(NRS,FT,GDD=85,Target){
-  NRS=0.7;FT=0.54;GDD=85;Target=0.3
+VRN=function(NRS=0.7,FT=0.54,GDD=85,Target=0.3){
+ # NRS=0.7;FT=0.54;GDD=85;Target=0.3
   RI=1.69*(NRS/FT)-0.6
   INSEY=Target/GDD
   INSEY_NR=NRS/GDD
@@ -11,7 +17,7 @@ VRN=function(NRS,FT,GDD=85,Target){
   YPN=YP0*RI
   YPNR=(YPN-YP0)*60*0.024/0.6
   #YPNR=590*exp(INSEY_NR*258.2) /1.12/60
-  YPN[YPN>YPNR]=YPNR
+  YPN[YPN>YPNR]=YPNR[YPN>YPNR]
   VRN = (YPN - YP0) * 60 *.024 / .60
   return(VRN)
 }
