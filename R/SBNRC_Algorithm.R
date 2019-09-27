@@ -4,7 +4,7 @@
 #'
 #' @param n_rich_strip (originally NRS) This value corresponds to the N-rich strip (90th percentile or average of NDVI).
 #' @param farmer_practice (originally FT) This parameter is the farmer practice NDVI taken next to N-rich strip or field average. 
-#' @param GDD This parameter is the number of growing degree days since planting.
+#' @param GDD This parameter is the number of days with growing degrees greater than 0 since planting.
 #' @param active_ndvi (originally Target) This input is generated from the NinjaActiveMapper::krige function;a raster(image).
 #' @param min_appl_rate This is a check to ensure that nitrogen is not applied higher than the yield potential of the N-rich strip.
 #' 

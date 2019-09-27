@@ -7,13 +7,28 @@
 #' @return image of the kriged values.
 #' @export
 
-krige_ndvi <- function(pts,img){
+map_active_ndvi <- function(pts,img){
 
     # Extract passive NDVI values from img for each point in the pts dataset
     pt_data <- raster::extract(img,pts,
             method="simple",
             sp=TRUE)
     names(pt_data) <-c("active","passive")
+    
+    # Determine number of actively measured points that are missing NDVI values within imagery
+    n_missing <- pt_data$passive %>% 
+      {is.na(.)} %>% 
+      sum()
+
+    if(n_missing > 0){
+      n_missing %>% 
+        sprintf('From map_active_ndvi():\n %i sample points dropped due to missing values within imagery.',.) %>% 
+        warning()
+      
+      pt_data <- pt_data@data$passive %>% 
+        {!is.na(.)} %>% 
+        {pt_data[.,]}
+    }
 
     # Convert img to a SpatialPointsDataFrame for kriging with autoKrige()
     pt_out <- as(img,"SpatialPointsDataFrame")
