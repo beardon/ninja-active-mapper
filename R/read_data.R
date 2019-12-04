@@ -55,7 +55,7 @@ read_image <- function(filename,
 
     NIR <- raster::raster(filename,band=nir_band)
     Red2 <- raster::raster(filename,band=red_band)
-    if(crs(NIR) != t_srs){
+    if(!identical(crs(NIR),crs(t_srs))){
       NDVI_img <- calc_ndvi(NIR,Red2) %>%
         raster::projectRaster(crs=t_srs)
     }else{
