@@ -4,8 +4,7 @@
 \alias{read_image}
 \title{Converts multiband geotiff to ndvi image.}
 \usage{
-read_image(filename, red_band = 6, nir_band = 4,
-  t_srs = "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs")
+read_image(filename, red_band = 6, nir_band = 4)
 }
 \arguments{
 \item{filename}{The tiff file with multiple bands.}

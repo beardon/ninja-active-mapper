@@ -7,17 +7,16 @@
 #' @examples
 #' read_pts('ndvi.csv')
 
-read_pts <- function(filename){
+read_pts <- function(filename,
+                     t_srs = CRS("+proj=utm +zone=14 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")){
 
-  orig_crs  <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-
-  utm14 <- "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+  orig_crs  <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 
   pts <- read_csv(filename) %>%
       {SpatialPointsDataFrame(dplyr::select(.,long,lat),
                               dplyr::select(.,ndvi),
-                              proj4string = CRS(orig_crs))} %>%
-      spTransform(CRSobj=CRS(utm14))
+                              proj4string = orig_crs)} %>%
+      spTransform(CRSobj=t_srs)
 
   return(pts)
 }
@@ -50,17 +49,12 @@ calc_ndvi <- function(NIR,Red){
 
 read_image <- function(filename,
                        red_band = 6,
-                       nir_band = 4,
-                       t_srs = "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"){
+                       nir_band = 4){
 
     NIR <- raster::raster(filename,band=nir_band)
     Red2 <- raster::raster(filename,band=red_band)
-    if(!identical(crs(NIR),crs(t_srs))){
-      NDVI_img <- calc_ndvi(NIR,Red2) %>%
-        raster::projectRaster(crs=t_srs)
-    }else{
-      NDVI_img <- calc_ndvi(NIR,Red2)
-    }
+    
+    NDVI_img <- calc_ndvi(NIR,Red2)
 
   return(NDVI_img)
 }
