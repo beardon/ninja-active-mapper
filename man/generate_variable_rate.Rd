@@ -2,31 +2,28 @@
 % Please edit documentation in R/SBNRC_Algorithm.R
 \name{generate_variable_rate}
 \alias{generate_variable_rate}
-\title{Implementing the Wheat algorithm from SBNRC NRate VRN equations excel sheet from Dr. Arnall's email
-Creates a variable rate nitrogen application image based on Nitrogen Rich Strip (n_rich_strip), Farmer/Target (farmer_practice), Growing Degree Days (GDD), and active_ndvi(Target).}
+\title{Creates a variable rate nitrogen application image based on Nitrogen Rich Strip (n_rich_strip), Farmer/Target (farmer_practice), Growing Degree Days (GDD), and active_ndvi(Target).}
 \usage{
-generate_variable_rate(n_rich_strip = 0.7, farmer_practice = 0.54,
-  GDD = 85, active_ndvi = 0.3, min_appl_rate = 0)
+generate_variable_rate(yld_fert_field, yld_ptnl_field, c = 0.024,
+  d = 0.6)
 }
 \arguments{
-\item{n_rich_strip}{(originally NRS) This value corresponds to the N-rich strip (90th percentile or average of NDVI).}
+\item{n_rich_strip}{(originally NRS) the average NDVI of the N-rich strip (unitless 0-1 scale)}
 
-\item{farmer_practice}{(originally FT) This parameter is the farmer practice NDVI taken next to N-rich strip or field average.}
+\item{farmer_practice}{(originally FT) the average NDVI of farmer practice adjacent to the N-rich strip  (unitless 0-1 scale)}
 
-\item{GDD}{This parameter is the number of days with growing degrees greater than 0 since planting.}
+\item{GDD}{This parameter is the number of days with growing degrees greater than 0 since planting (1 to 260)}
 
-\item{active_ndvi}{(originally Target) This input is generated from the NinjaActiveMapper::krige function;a raster(image).}
+\item{active_ndvi}{(originally Target) A raster image generated from the NinjaActiveMapper::krige function (unitless 0-1 scale)}
 
-\item{min_appl_rate}{This is a check to ensure that nitrogen is not applied higher than the yield potential of the N-rich strip.}
+\item{min_appl_rate}{Minimum nitrogen application rate (lbs per acre) to be applied across the field (range would depend on crop, but probably 0 to 50?)}
 }
 \value{
 The SBNRC adjusted Nitrogen rate
 }
 \description{
-Implementing the Wheat algorithm from SBNRC NRate VRN equations excel sheet from Dr. Arnall's email
 Creates a variable rate nitrogen application image based on Nitrogen Rich Strip (n_rich_strip), Farmer/Target (farmer_practice), Growing Degree Days (GDD), and active_ndvi(Target).
 }
 \examples{
 VRN(n_rich_strip=0.7,farmer_practice=0.54,GDD=85,active_ndvi,min_appl_rate=0)
 }
-

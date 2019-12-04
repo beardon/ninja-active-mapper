@@ -18,4 +18,3 @@ This function reads in a csv file with crs latitude and longitude, converts it t
 \examples{
 read_pts('ndvi.csv')
 }
-

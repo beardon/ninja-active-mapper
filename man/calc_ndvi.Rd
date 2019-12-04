@@ -20,4 +20,3 @@ This function calculates ndvi as a function of near infrared) NIR and red channe
 \examples{
 calc_ndvi(0.5, 0.08)
 }
-

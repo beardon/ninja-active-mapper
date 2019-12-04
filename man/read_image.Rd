@@ -4,8 +4,8 @@
 \alias{read_image}
 \title{Converts multiband geotiff to ndvi image.}
 \usage{
-read_image(filename, layer_names = c("Blue", "Green", "Red", "NIR", "Green2",
-  "Red2", "Thermal"))
+read_image(filename, layer_names = c("Blue", "Green", "Red", "NIR",
+  "Green2", "Red2", "Thermal"), read_all_bands = FALSE)
 }
 \arguments{
 \item{filename}{The tiff file with multiple bands.}
@@ -19,4 +19,3 @@ This function reads in a multiband geotiff file, calculates ndvi using calc_ndvi
 \examples{
 read_image('MULTIBAND.tiff')
 }
-

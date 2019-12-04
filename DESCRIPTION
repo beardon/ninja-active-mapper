@@ -10,10 +10,12 @@ Depends:
     boot,
     betareg,
     dplyr,
+    tidyr,
     raster,
     readr,
-    rgdal
+    rgdal,
+    sf
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1

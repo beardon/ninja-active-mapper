@@ -11,7 +11,8 @@
 #' @examples
 #' VRN(n_rich_strip=0.7,farmer_practice=0.54,GDD=85,active_ndvi,min_appl_rate=0)
 
-generate_variable_rate=function(n_rich_strip=0.7,farmer_practice=0.54,GDD=85,active_ndvi=0.3,min_appl_rate=0){
+generate_variable_rate=function(yld_fert_field,yld_ptnl_field,
+                                c=0.024,d=0.60){
 
   #yld_ptnl_field (originally YP0); Yield potential of the field
   #response_index (originally RI); Response index
@@ -21,25 +22,49 @@ generate_variable_rate=function(n_rich_strip=0.7,farmer_practice=0.54,GDD=85,act
   #(originally INSEY); update this when a good name/description is found
   #(originally INSEY_NR); update this when a good name/description is found
   
-  check_range('n_rich_strip',n_rich_strip,ne_val=0)
-  check_range('farmer_practice',farmer_practice,
-              ne_val=0,min_val=0,max_val=1)
-  check_range('farmer_practice',farmer_practice,
-              ne_val=0,min_val=0,max_val=1)
+  variable_rate_N = (yld_fert_field - yld_ptnl_field) * c / d
+
+  return(variable_rate_N)
+}
+
+#' Calculate yield potential
+#' 
+#' @export
+#' 
+yield_potential <- function(NDVI,GDD,A,b){
+
   check_range('GDD',GDD,
               ne_val=0,min_val=0)
-  check_range('min_appl_rate',min_appl_rate,
-              min_val=0)
+
+  check_range('NDVI',NDVI,
+              ne_val=0,min_val=0,max_val=1)
   
-  response_index=1.69*(n_rich_strip/farmer_practice)-0.6
-  INSEY=active_ndvi/GDD
-  INSEY_NR=n_rich_strip/GDD
-  yld_ptnl_field=590*exp(INSEY*258.2)/1.12/60
-  yld_fert_field=yld_ptnl_field*response_index
-  yld_ptnl_nRich=590*exp(INSEY_NR*258.2)/1.12/60 
-  yld_fert_field[yld_fert_field>yld_ptnl_nRich]=yld_ptnl_nRich
-  variable_rate_N = (yld_fert_field - yld_ptnl_field) * 60 *.024 / .60
-  variable_rate_N[variable_rate_N<min_appl_rate] <- min_appl_rate
+  yld_pot <- A*exp(NDVI/GDD*b)
   
-  return(variable_rate_N)
+  return(yld_pot)
+}
+
+#' Calculate yield potential
+#' 
+#' @export
+#' 
+fertilized_yield_potential <- function(yp_field,yp_N_rich,
+                                       N_rich_strip,farmer_practice,
+                                       slope,intercept){
+
+  check_range('N_rich_strip',N_rich_strip,ne_val=0)
+
+  check_range('farmer_practice',farmer_practice,
+              ne_val=0,min_val=0,max_val=1)
+  
+  response_index <- slope*(N_rich_strip/farmer_practice)+intercept
+
+  yp_fertilized <- yp_field*response_index
+  
+  # Cap fertilized yield potential at yield potential of N rich strip
+  yp_fertilized[yp_fertilized>yp_N_rich] <- yp_N_rich
+  
+  yp_fertilized[yp_field > yp_N_rich] <- yp_field[yp_field > yp_N_rich]
+  
+  return(yp_fertilized)
 }
