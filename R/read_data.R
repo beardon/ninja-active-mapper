@@ -49,27 +49,18 @@ calc_ndvi <- function(NIR,Red){
 #' read_image('MULTIBAND.tiff')
 
 read_image <- function(filename,
-                       layer_names=c('Blue', 'Green', 'Red', 'NIR',
-                  'Green2', 'Red2', 'Thermal'),
-                  read_all_bands=FALSE){
+                       red_band = 6,
+                       nir_band = 4,
+                       t_srs = "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"){
 
-  utm14 <- "+proj=utm +zone=14 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
-
-  if(read_all_bands){
-    img <- raster::brick(filename)
-    names(img) <- layer_names
-    NDVI_img <- calc_ndvi(img[['NIR']],img[['Red2']]) %>%
-      raster::projectRaster(crs=utm14)
-  }else{
-    NIR <- raster::raster(filename,band=4)
-    Red2 <- raster::raster(filename,band=6)
-    NDVI_img <- calc_ndvi(NIR,Red2) %>%
-      raster::projectRaster(crs=utm14)
-  }
-  
-  
-
-
+    NIR <- raster::raster(filename,band=nir_band)
+    Red2 <- raster::raster(filename,band=red_band)
+    if(crs(NIR) != t_srs){
+      NDVI_img <- calc_ndvi(NIR,Red2) %>%
+        raster::projectRaster(crs=t_srs)
+    }else{
+      NDVI_img <- calc_ndvi(NIR,Red2)
+    }
 
   return(NDVI_img)
 }
