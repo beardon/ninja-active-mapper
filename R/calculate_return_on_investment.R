@@ -24,11 +24,11 @@ calculate_return_on_investment <- function(yield_fertilized,yield_field,
 
 #' @export
 #' 
-calculate_return_on_vrn <- function(yield_vrn,yield_flat,
+calculate_return_on_vrn <- function(yield_loss,
                                     N_excess,
                                     grain_price,N_price){
   
-  income <- (yield_vrn - yield_flat) * grain_price
+  income <- yield_loss * grain_price
   
   savings <- N_excess * N_price
   
@@ -40,7 +40,7 @@ calculate_return_on_vrn <- function(yield_vrn,yield_flat,
 
 #' @export
 #' 
-calculate_yield_flat_rate <- function(yield_fertilized,yield_field,
+calculate_yield_loss <- function(yield_fertilized,yield_field,
                                  N_flat,N_crop){
 
   yield_flat_rate <- yield_field + N_flat/N_crop
@@ -66,7 +66,7 @@ calculate_N_excess <- function(N_rec,N_flat){
 
 #' @export
 #' 
-return_on_investment_vrn <- function(yield_fertilized,yield_field,
+return_on_investment_vrn <- function(yield_loss,
                                  N_rec,N_flat,N_crop,
                                  grain_price,N_price){
   
@@ -74,7 +74,7 @@ return_on_investment_vrn <- function(yield_fertilized,yield_field,
   pixel_area <- res(yield_fertilized) %>% 
   {(.[1]*.[2])/10000}
   
-  income <- sum(yield_fertilized - yield_field) * grain_price * pixel_area
+  income <- sum(yield_loss) * grain_price * pixel_area
   
   cost <- sum(N_rec) * N_price * pixel_area
   
