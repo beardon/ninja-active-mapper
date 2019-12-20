@@ -12,7 +12,7 @@
 #' VRN(n_rich_strip=0.7,farmer_practice=0.54,GDD=85,active_ndvi,min_appl_rate=0)
 
 generate_variable_rate=function(yld_fert_field,yld_ptnl_field,
-                                c=0.024,d=0.60){
+                                grain_N=0.024,NUE=0.60){
 
   #yld_ptnl_field (originally YP0); Yield potential of the field
   #response_index (originally RI); Response index
@@ -21,8 +21,10 @@ generate_variable_rate=function(yld_fert_field,yld_ptnl_field,
   #variable_rate_N(originally VRN); Variable rate of N to apply
   #(originally INSEY); update this when a good name/description is found
   #(originally INSEY_NR); update this when a good name/description is found
+  # grain_N: grain N concentration (fraction)
+  # NUE: Nitrogen Use Efficiency (fraction)
   
-  variable_rate_N = (yld_fert_field - yld_ptnl_field) * c / d
+  variable_rate_N = (yld_fert_field - yld_ptnl_field) * grain_N / NUE
 
   return(variable_rate_N)
 }

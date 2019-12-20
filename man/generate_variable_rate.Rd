@@ -4,8 +4,8 @@
 \alias{generate_variable_rate}
 \title{Creates a variable rate nitrogen application image based on Nitrogen Rich Strip (n_rich_strip), Farmer/Target (farmer_practice), Growing Degree Days (GDD), and active_ndvi(Target).}
 \usage{
-generate_variable_rate(yld_fert_field, yld_ptnl_field, c = 0.024,
-  d = 0.6)
+generate_variable_rate(yld_fert_field, yld_ptnl_field, grain_N = 0.024,
+  NUE = 0.6)
 }
 \arguments{
 \item{n_rich_strip}{(originally NRS) the average NDVI of the N-rich strip (unitless 0-1 scale)}

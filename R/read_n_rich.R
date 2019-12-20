@@ -22,8 +22,7 @@ read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi){
     # Buffer around N rich strip to get area for farmer practice
     farmer_practice <- n_rich %>% 
       st_buffer(buffer_radius) %>% 
-      st_difference(n_rich) %>% 
-      dplyr::select(-dummy.1)
+      st_difference(n_rich)
 
     fp_area <- st_area(farmer_practice)
 
