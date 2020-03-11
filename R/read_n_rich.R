@@ -35,9 +35,11 @@ read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi){
   }
   
   avg_nr_ndvi <- raster::extract(active_ndvi,n_rich,mean) %>% 
-    as.vector()
+    as.vector() %>% 
+    mean(na.rm=TRUE)
   avg_fp_ndvi <- raster::extract(active_ndvi,farmer_practice,mean) %>% 
-    as.vector()
+    as.vector() %>% 
+    mean(na.rm=TRUE)
 
   return(list(n_rich_strip=avg_nr_ndvi,farmer_practice=avg_fp_ndvi))
 }
