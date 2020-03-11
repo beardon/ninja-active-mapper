@@ -38,9 +38,26 @@ calc_ndvi <- function(NIR,Red){
 }
 
 
+#' Calculates NDVI using equation from Sentera
+#' 
+#' This function calculates NDVI as a function of NIR and red channels using
+#' the equation provided by Sentera
+#' @param NIR The spectral reflectance in the NIR region.
+#' @param red The spectral reflectance in red or visible region.
+#' @return NDVI
+#' @export
+#' @examples
+#' calc_sentera_ndvi(0.5, 0.08)
+
+calc_sentera_ndvi <- function(NIR,red){
+  vi <- ((1.236 * NIR) - (0.188 * red))/((1.000 * NIR) + (0.044 * red))
+  return(vi)
+}
+
 #' Converts multiband geotiff to ndvi image.
 #' 
-#' This function reads in a multiband geotiff file, calculates ndvi using calc_ndvi function, projects the raster into crs utm14, and returns ndvi image as a single layer.
+#' This function reads in a multiband geotiff file, calculates ndvi
+#'  using calc_ndvi function and returns ndvi image as a single layer.
 #' @param filename The tiff file with multiple bands.
 #' @return ndvi image
 #' @export
@@ -56,5 +73,28 @@ read_image <- function(filename,
     
     NDVI_img <- calc_ndvi(NIR,Red2)
 
+  return(NDVI_img)
+}
+
+
+#' Converts a False-color geotiff to NDVI image using Sentera's formula
+#' 
+#' This function reads in a false-color geotiff file, calculates NDVI
+#'  using calc_sentera_ndvi() function and returns ndvi image as a single layer.
+#' @param filename The tiff file with multiple bands.
+#' @return ndvi image
+#' @export
+#' @examples
+#' read_sentera('FALSE_COLOR.tiff')
+
+read_sentera <- function(filename,
+                       red_band = 1,
+                       NIR_band = 3){
+  
+  NIR <- raster::raster(filename,band=NIR_band)
+  red <- raster::raster(filename,band=red_band)
+  
+  NDVI_img <- calc_sentera_ndvi(NIR_band,red)
+  
   return(NDVI_img)
 }

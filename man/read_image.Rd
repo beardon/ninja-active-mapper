@@ -13,7 +13,8 @@ read_image(filename, red_band = 6, nir_band = 4)
 ndvi image
 }
 \description{
-This function reads in a multiband geotiff file, calculates ndvi using calc_ndvi function, projects the raster into crs utm14, and returns ndvi image as a single layer.
+This function reads in a multiband geotiff file, calculates ndvi
+ using calc_ndvi function and returns ndvi image as a single layer.
 }
 \examples{
 read_image('MULTIBAND.tiff')
