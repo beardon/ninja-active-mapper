@@ -94,7 +94,7 @@ read_sentera <- function(filename,
   NIR <- raster::raster(filename,band=NIR_band)
   red <- raster::raster(filename,band=red_band)
   
-  NDVI_img <- calc_sentera_ndvi(NIR_band,red)
+  NDVI_img <- calc_sentera_ndvi(NIR,red)
   
   return(NDVI_img)
 }
