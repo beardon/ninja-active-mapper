@@ -40,15 +40,15 @@ map_active_ndvi <- function(pts,img){
     fit <- betareg(active~passive, data=pt_data, link = "logit")
     active_out <- predict(fit,newdata=pt_out)
     ## Adding residuals to spdf column
-    pt_data$resid <- residuals(fit)
+    #pt_data$resid <- residuals(fit)
     ## Fitting a variogram on residuals
-    kriged_resid <- automap::autoKrige(resid~1, input_data=pt_data,new_data = pt_out)
-    back_transformed <- inv.logit(logit(active_out) + kriged_resid$krige_output$var1.pred)
+    #kriged_resid <- automap::autoKrige(resid~1, input_data=pt_data,new_data = pt_out)
+    #back_transformed <- inv.logit(logit(active_out) + kriged_resid$krige_output$var1.pred)
 
     # Create copy of original image for filling in kriged values
     ndvi_active <- img
 
-    ndvi_active[!is.na(ndvi_active)] <- back_transformed
+    ndvi_active[!is.na(ndvi_active)] <- active_out
 
     return(ndvi_active)
 }
