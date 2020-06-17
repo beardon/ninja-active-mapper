@@ -17,5 +17,5 @@ This function reads in a false-color geotiff file, calculates NDVI
  using calc_sentera_ndvi() function and returns ndvi image as a single layer.
 }
 \examples{
-read_sentera_rgb('FALSE_COLOR.tiff')
+read_sentera('FALSE_COLOR.tiff')
 }

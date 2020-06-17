@@ -4,8 +4,11 @@
 \alias{read_pts}
 \title{Converts csv with crs latitude, longitude to spatial points data frame with crs Universal Transverse Mercator 14 (utm14).}
 \usage{
-read_pts(filename,
-  t_srs = CRS("+proj=utm +zone=14 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"))
+read_pts(
+  filename,
+ 
+    t_srs = CRS("+proj=utm +zone=14 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+)
 }
 \arguments{
 \item{filename}{The csv file with Normalized difference vegetation index (ndvi) data.}

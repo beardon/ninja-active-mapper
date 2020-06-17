@@ -4,8 +4,13 @@
 \alias{calculate_return_on_investment}
 \title{Function for calculating the return on investment for variable rate nitrogen application}
 \usage{
-calculate_return_on_investment(yield_fertilized, yield_field, N_rate,
-  grain_price, N_price)
+calculate_return_on_investment(
+  yield_fertilized,
+  yield_field,
+  N_rate,
+  grain_price,
+  N_price
+)
 }
 \arguments{
 \item{yield_uniform_N}{yield prediction with uniform rate nitrogen application}
