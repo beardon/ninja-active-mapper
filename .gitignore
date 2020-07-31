@@ -1,8 +1,15 @@
-.Rproj.user
-.Rhistory
+# Intellij
+.idea
+*.iml
+
+# ninja-active-mapper
+algorithm_docs
+example_data
+
+# R
+.Rbuildignore
 .RData
+.Rhistory
+.Rproj.user
 .Ruserdata
 ninja-active-mapper.Rproj
-.Rbuildignore
-example_data
-algorithm_docs

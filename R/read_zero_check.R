@@ -9,10 +9,10 @@
 #'   
 #' @export
 #' 
-read_zero_n_check_farmer_practice <- function(shapefile_path,active_ndvi){
+read_zero_n_check_farmer_practice <- function(shapefile_path,active_ndvi,shapefile_crs=NULL){
 
   # Read shapefile using N rich strip function
-  zero_check <- read_n_rich_strip_farmer_practice(shapefile_path, active_ndvi)
+  zero_check <- read_n_rich_strip_farmer_practice(shapefile_path,active_ndvi,shapefile_crs)
   
   # Return output using zero N check naming
   return(list(zero_n_check = zero_check$n_rich_strip,
