@@ -5,7 +5,8 @@
 #'   
 #' @export
 #' 
-read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi){
+read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi,
+                                              percentile_threshold=90){
 
   # Read in shapefile for N rich strip
   n_rich <- st_read(shapefile_path)
@@ -34,7 +35,7 @@ read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi){
     }
   }
   
-  avg_nr_ndvi <- raster::extract(active_ndvi,n_rich,mean,na.rm=TRUE) %>% 
+  avg_nr_ndvi <- raster::extract(active_ndvi,n_rich,quantile,na.rm=TRUE,probs=percentile_threshold/100) %>% 
     as.vector() # return of raster::extract() is matrix need to convert to length-one vector
   avg_fp_ndvi <- raster::extract(active_ndvi,farmer_practice,mean,na.rm=TRUE) %>% 
     as.vector() # return of raster::extract() is matrix need to convert to length-one vector
