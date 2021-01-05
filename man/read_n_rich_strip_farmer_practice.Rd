@@ -4,11 +4,24 @@
 \alias{read_n_rich_strip_farmer_practice}
 \title{Reads shapefile of N Rich Strip and buffers for Farmer practice}
 \usage{
-read_n_rich_strip_farmer_practice(shapefile_path, active_ndvi)
+read_n_rich_strip_farmer_practice(
+  shapefile_path,
+  active_ndvi,
+  shapefile_crs = NULL,
+  percentile_threshold = 90
+)
 }
 \arguments{
 \item{shapefile_path}{a length-one character vector that gives the file path
 for the shapefile for the N rich strip}
+
+\item{active_ndvi}{a raster layer of actively mapped NDVI}
+
+\item{shapefile_crs}{a coordinate reference system description as generated
+by `crs()`}
+
+\item{percentile_threshold}{percentile at which to calculate the summary
+value for the N Rich Strip (percent)}
 }
 \description{
 Reads shapefile of N Rich Strip and buffers for Farmer practice

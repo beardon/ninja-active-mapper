@@ -4,7 +4,11 @@
 \alias{read_zero_n_check_farmer_practice}
 \title{Reads shapefile of Zero Check Strip and buffers for Farmer practice}
 \usage{
-read_zero_n_check_farmer_practice(shapefile_path, active_ndvi)
+read_zero_n_check_farmer_practice(
+  shapefile_path,
+  active_ndvi,
+  shapefile_crs = NULL
+)
 }
 \arguments{
 \item{shapefile_path}{a length-one character vector that gives the file path
