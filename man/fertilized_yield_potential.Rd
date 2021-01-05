@@ -4,8 +4,14 @@
 \alias{fertilized_yield_potential}
 \title{Calculate yield potential}
 \usage{
-fertilized_yield_potential(yp_field, yp_N_rich, N_rich_strip,
-  farmer_practice, slope, intercept)
+fertilized_yield_potential(
+  yp_field,
+  yp_N_rich,
+  N_rich_strip,
+  farmer_practice,
+  slope,
+  intercept
+)
 }
 \description{
 Calculate yield potential

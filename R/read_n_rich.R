@@ -6,10 +6,15 @@
 #' @export
 #' 
 read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi,
+                                              shapefile_crs=NULL,
                                               percentile_threshold=90){
 
   # Read in shapefile for N rich strip
   n_rich <- st_read(shapefile_path)
+
+  if(!is.null(shapefile_crs)){
+    n_rich <- st_set_crs(n_rich,shapefile_crs)
+  }
   
   # Calculate area of N rich strip
   nr_area <- st_area(n_rich)
