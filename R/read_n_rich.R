@@ -12,7 +12,7 @@
 #' 
 read_n_rich_strip_farmer_practice <- function(shapefile_path,active_ndvi,
                                               shapefile_crs=NULL,
-                                              percentile_threshold=90){
+                                              percentile_threshold=95){
 
   # Read in shapefile for N rich strip
   n_rich <- st_read(shapefile_path)
