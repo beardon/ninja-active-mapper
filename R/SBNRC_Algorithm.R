@@ -50,9 +50,9 @@ yield_potential <- function(NDVI,GDD,A,b){
 #' 
 #' @export
 #' 
-fertilized_yield_potential <- function(yp_field,yp_N_rich,
-                                       N_rich_strip,farmer_practice,
-                                       slope,intercept){
+fertilized_yield_potential <- function(yp_field, yp_N_rich,
+                                       N_rich_strip, farmer_practice,
+                                       slope, intercept, yp_fp){
 
   check_range('N_rich_strip',N_rich_strip,ne_val=0)
 
@@ -63,8 +63,10 @@ fertilized_yield_potential <- function(yp_field,yp_N_rich,
 
   yp_fertilized <- yp_field*response_index
   
-  # Cap fertilized yield potential at yield potential of N rich strip
-  yp_fertilized[yp_fertilized>yp_N_rich] <- yp_N_rich
+  yp_cap <- yp_fp*response_index
+  
+  # Cap fertilized yield potential at yield potential of the farmer practice
+  yp_fertilized[yp_fertilized>yp_cap] <- yp_cap
   
   yp_fertilized[yp_field > yp_N_rich] <- yp_field[yp_field > yp_N_rich]
   
