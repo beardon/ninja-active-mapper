@@ -4,7 +4,7 @@
 #' 
 zero_check_fertilized_yield_potential <- function(yp_field,yp_farmer_practice,
                                                   zero_check_strip,farmer_practice,
-                                                  slope,intercept){
+                                                  slope,intercept,yp_cap_multiplier=1.33){
   
   check_range('zero_check_strip',zero_check_strip,ne_val=0)
   
@@ -17,7 +17,7 @@ zero_check_fertilized_yield_potential <- function(yp_field,yp_farmer_practice,
   yp_fertilized <- yp_field*response_index
   
   # Cap fertilized yield potential at 20% above yield potential of farmer practice times the response index
-  yp_max <- yp_farmer_practice*response_index*1.2
+  yp_max <- yp_farmer_practice*response_index*yp_cap_multiplier
 
   yp_fertilized[yp_fertilized > yp_max] <- yp_max
   
